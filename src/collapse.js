@@ -23,12 +23,13 @@ export function collapseFrames(frames) {
     const current = frames[i];
     let count = 1;
 
-    // Count consecutive identical frames (same file and line)
+    // Count consecutive identical frames (same file, line, fn, AND type)
     while (
       i + count < frames.length &&
       frames[i + count].file === current.file &&
       frames[i + count].line === current.line &&
-      frames[i + count].fn === current.fn
+      frames[i + count].fn === current.fn &&
+      frames[i + count].type === current.type
     ) {
       count++;
     }

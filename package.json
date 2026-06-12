@@ -1,0 +1,26 @@
+{
+  "name": "stacylize",
+  "version": "1.0.0",
+  "description": "A CLI tool for beautifying and colorizing stack traces from JS, Python, and Java.",
+  "main": "src/index.js",
+  "bin": {
+    "stacylize": "./bin/stacylize"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/mocha --recursive 'tests/**/*.js'",
+    "test:watch": "npm test -- --watch"
+  },
+  "keywords": ["stacktrace", "debug", "cli", "colorize"],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "5.4.1",
+    "commander": "13.1.0"
+  },
+  "devDependencies": {
+    "mocha": "11.1.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}

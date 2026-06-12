@@ -9,20 +9,23 @@ export const LANGUAGES = {
 // Regex patterns used for language detection (first match wins)
 // Keyed by language, array of regexes that match characteristic frame lines
 export const DETECTION_PATTERNS = {
-  [LANGUAGES.JAVASCRIPT]: [
-    /^\s+at\s+(?:async\s+)?(?:[A-Za-z$_][\w$.]*(?:\s+\()?)?(?:.*?)(?:\s+\()?(?:file:\/\/|https?:\/\/|[A-Za-z]:[\\/]|\/|[A-Za-z$_][\w$.]*\.\w+:\d+)/,
-    /^\s+at\s+(?:async\s+)?(?:[A-Za-z$_][\w$.<>]*(?:\s+\()?)?(?:.*?):(\d+):(\d+)\)?$/,
-    /^\s+at\s+(?:async\s+)?.*?\(.*?:\d+:\d+\)/,
-    /^\s+at\s+.*?:\d+:\d+/,
-  ],
-  [LANGUAGES.PYTHON]: [
-    /^\s*File\s+"[^"]+",\s+line\s+\d+/,
-    /^\s*File\s+'[^']+',\s+line\s+\d+/,
-  ],
+  // Java checked first because both JS and Java use "at " prefix
+  // Java patterns are more specific (package.Class.method pattern)
   [LANGUAGES.JAVA]: [
     /^\s+at\s+[a-zA-Z_][\w.]*\.[a-zA-Z_]\w*\(/,
     /^\s+\.\.\.\s+\d+\s+more/,
     /^Caused by:\s+/,
+  ],
+  [LANGUAGES.JAVASCRIPT]: [
+    // JS frames have :line:col (col is optional but line must be present)
+    // and do NOT match Java's package.Class pattern
+    /^\s+at\s+(?:async\s+)?(?:[A-Za-z$_][\w$.<>]*(?:\s+\()?)?(?:.*?)\s*\(.*?:\d+(?::\d+)?\)/,
+    /^\s+at\s+(?:async\s+)?.*?:\d+:\d+/,
+    /^\s+at\s+(?:async\s+)?.*?\s+\(.*?:\d+\)/,
+  ],
+  [LANGUAGES.PYTHON]: [
+    /^\s*File\s+"[^"]+",\s+line\s+\d+/,
+    /^\s*File\s+'[^']+',\s+line\s+\d+/,
   ],
 };
 

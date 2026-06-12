@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+
+import { Command } from 'commander';
+import { processTrace, readFromFile, readFromStdin } from '../src/index.js';
+import { LANGUAGES } from '../src/constants.js';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Read package.json for version info
+const require = createRequire(import.meta.url);
+const pkg = require(path.resolve(__dirname, '..', 'package.json'));
+
+const program = new Command();
+
+program
+  .name('stacylize')
+  .description('Beautify and colorize stack traces from JS, Python, and Java')
+  .version(pkg.version)
+  .option('-f, --file <path>', 'Read stack trace from a file instead of stdin')
+  .option('-l, --language <lang>', 'Force language (javascript, python, java)')
+  .option('--no-color', 'Disable color output')
+  .action(async (options) => {
+    try {
+      // Read input
+      let rawTrace = '';
+      if (options.file) {
+        rawTrace = readFromFile(options.file);
+      } else {
+        rawTrace = await readFromStdin();
+      }
+
+      if (!rawTrace || rawTrace.trim().length === 0) {
+        console.error('No input provided. Pipe a stack trace or use -f <file>.');
+        process.exit(1);
+      }
+
+      // Validate language override
+      let languageOverride = null;
+      if (options.language) {
+        const lang = options.language.toLowerCase();
+        if (!Object.values(LANGUAGES).includes(lang) && lang !== 'unknown') {
+          console.error(`Unknown language: "${options.language}". Use: javascript, python, java`);
+          process.exit(1);
+        }
+        languageOverride = lang;
+      }
+
+      // Process the trace
+      const { output, language } = processTrace(rawTrace, languageOverride);
+
+      if (language === LANGUAGES.UNKNOWN && !languageOverride) {
+        console.error(`Warning: Could not detect language. Outputting raw trace.`, '');
+      }
+
+      process.stdout.write(output + '\n');
+    } catch (err) {
+      console.error(`Error: ${err.message}`);
+      process.exit(1);
+    }
+  });
+
+program.parse(process.argv);

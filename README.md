@@ -64,9 +64,17 @@ echo 'Error: something broke
     at process.processTicksAndRejections (node:internal/process/task_queues.js:95:5)' | stacylize
 ```
 
+Output: *(function names in green, files in blue, line:col in yellow)*
+```
+Object.<anonymous> (/src/app.js:42:10)
+asyncGeneratorStep (/src/helpers.js:15:3)
+... 2 frames from node:internal
+```
+
 **Python:**
 ```bash
-echo 'Traceback (most recent call last):
+echo '
+Traceback (most recent call last):
   File "/app/main.py", line 42, in <module>
     main()
   File "/app/main.py", line 25, in main
@@ -76,12 +84,34 @@ echo 'Traceback (most recent call last):
 ZeroDivisionError: division by zero' | stacylize -l python
 ```
 
-**Java:**
+Output: *(function names in cyan, files in yellow, line numbers in white)*
+```
+<module> (/app/main.py:42)
+main (/app/main.py:25)
+compute (/app/utils.py:15)
+```
+
+**Java (with Caused by):**
 ```bash
 echo 'Exception in thread "main" java.lang.NullPointerException
     at com.example.Main.process(Main.java:42)
     at com.example.Main.main(Main.java:15)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:580)' | stacylize -l java
+    at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+Caused by: java.io.IOException: connection refused
+    at com.example.Net.connect(Net.java:88)
+    at com.example.Main.process(Main.java:40)
+    ... 3 more' | stacylize -l java
+```
+
+Output: *(class names in red, files in orange, line numbers in yellow)*
+```
+com.example.Main.process (Main.java:42)
+com.example.Main.main (Main.java:15)
+... 1 frame from java.base
+Caused by: java.io.IOException: connection refused
+com.example.Net.connect (Net.java:88)
+com.example.Main.process (Main.java:40)
+... 3 more
 ```
 
 ---

@@ -169,6 +169,13 @@ a:hover {
   color: var(--green-400);
 }
 
+.nav__link--icon {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 4px;
+}
+.nav__link--icon svg { display: block; }
+
 /* ═══════════════════════════════════════════════
    HERO
    ═══════════════════════════════════════════════ */

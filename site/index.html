@@ -6,7 +6,7 @@
     <title>stacylize — make stack traces readable</title>
     <meta name="description" content="Beautify and colorize stack traces from JavaScript, Python, and Java with stacylize CLI." />
     <meta property="og:title" content="stacylize — make stack traces readable" />
-    <meta property="og:description" content="Beautify and colorize stack traces from JavaScript, Python, and Java. CLI tool: npx stacylize" />
+    <meta property="og:description" content="Beautify and colorize stack traces from JavaScript, Python, and Java. CLI tool: npx github:kvnlnk/stacylize" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://github.com/kvnlnk/stacylize" />
     <meta property="og:image" content="https://github.com/kvnlnk/stacylize/raw/main/assets/screenshot.png" />
@@ -55,7 +55,7 @@
           </p>
           <div class="hero__actions">
             <code class="hero__install-cmd">
-              <span class="prompt">$</span> npx stacylize<span class="cursor-blink">_</span>
+              <span class="prompt">$</span> npx github:kvnlnk/stacylize<span class="cursor-blink">_</span>
             </code>
             <a href="#install" class="btn btn--ghost">Read the docs &rarr;</a>
           </div>
@@ -146,7 +146,7 @@ DETAIL:  Key <span class="hl-string">(id)=(42)</span> already exists.</pre>
             </div>
             <h3 class="feature-card__title">Pipe &amp; File Input</h3>
             <p class="feature-card__desc">
-              Works three ways: <code>pipe a trace</code>, <code>npx stacylize file.txt</code>,
+              Works three ways: <code>pipe a trace</code>, <code>npx github:kvnlnk/stacylize file.txt</code>,
               or paste directly into the terminal prompt.
             </p>
           </div>
@@ -161,7 +161,7 @@ DETAIL:  Key <span class="hl-string">(id)=(42)</span> already exists.</pre>
             <h3 class="feature-card__title">Zero Config</h3>
             <p class="feature-card__desc">
               No setup file, no API key, no dependencies to install globally.
-              Just <code>npx stacylize</code> and you&rsquo;re done.
+              Just <code>npx github:kvnlnk/stacylize</code> and you&rsquo;re done.
             </p>
           </div>
 
@@ -199,10 +199,10 @@ DETAIL:  Key <span class="hl-string">(id)=(42)</span> already exists.</pre>
             <div class="terminal__body terminal__body--compact">
               <pre class="terminal__code terminal__code--raw install__code">
 <span class="hl-dim"># Run directly (no install needed)</span>
-<span class="prompt">$</span> npx stacylize<span class="cursor-blink">_</span>
+<span class="prompt">$</span> npx github:kvnlnk/stacylize<span class="cursor-blink">_</span>
 
 <span class="hl-dim"># Or install globally</span>
-<span class="prompt">$</span> npm install -g stacylize</pre>
+<span class="prompt">$</span> npm install -g github:kvnlnk/stacylize</pre>
             </div>
           </div>
 
@@ -213,15 +213,15 @@ DETAIL:  Key <span class="hl-string">(id)=(42)</span> already exists.</pre>
             <div class="install__examples">
               <div class="install__example">
                 <span class="hl-dim"># Pipe a trace from a process</span>
-                <span class="prompt">$</span> node app.js <span class="hl-pipe">2&gt;&amp;1</span> | npx stacylize
+                <span class="prompt">$</span> node app.js <span class="hl-pipe">2&gt;&amp;1</span> | npx github:kvnlnk/stacylize
               </div>
               <div class="install__example">
                 <span class="hl-dim"># Pass a file</span>
-                <span class="prompt">$</span> npx stacylize trace.txt
+                <span class="prompt">$</span> npx github:kvnlnk/stacylize trace.txt
               </div>
               <div class="install__example">
                 <span class="hl-dim"># Paste mode (interactive)</span>
-                <span class="prompt">$</span> npx stacylize --paste
+                <span class="prompt">$</span> npx github:kvnlnk/stacylize --paste
               </div>
             </div>
           </div>
